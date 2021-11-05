@@ -1,14 +1,22 @@
 version: '3.2'
+
+# Usage
+
+# Create the container image
+# docker build -t davis2016-eval .
+
+# Start the container. Set the paths below to the correct directories
+# docker-compose run davis2016-eval
+
+# Insider the container:
+# python python/tools/eval.py /workspace/results/<method-name> /workspace/results --metrics J F T
+# This will create <method-name>.h5
+# F and T metrics are broken at the moment.
+
 services:
   davis2016-eval:
     image: davis2016-eval
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
-    # command: jupyter lab --ip=0.0.0.0 --port 8888 --no-browser --allow-root
     command: bash
-    # ports:
-    # - 8888:8888
     volumes:
       - type: bind
         target: /usr/src/app/data/DAVIS/
