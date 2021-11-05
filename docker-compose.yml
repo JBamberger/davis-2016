@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+  davis2016-eval:
+    image: davis2016-eval
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # command: jupyter lab --ip=0.0.0.0 --port 8888 --no-browser --allow-root
+    command: bash
+    # ports:
+    # - 8888:8888
+    volumes:
+      - type: bind
+        target: /usr/src/app/data/DAVIS/
+        source: K:/datasets/DAVIS/DAVIS2016/
+        read_only: true
+      - type: bind
+        target: /workspace/results
+        source: K:/results-test
+        read_only: false
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]
+              capabilities: [ gpu ]
